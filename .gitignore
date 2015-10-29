@@ -1,0 +1,6 @@
+build
+*.war
+*.db
+.idea
+.gradle
+grails-app/assets/lib
