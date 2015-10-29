@@ -1,0 +1,22 @@
+{
+  "name": "angular-api",
+  "authors": [
+    "TheConnMan <bcconn2112@gmail.com>"
+  ],
+  "description": "Test app for Grails and Angular",
+  "moduleType": [],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "grails-app/assets/lib",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "angularjs#~1.4.7",
+    "semantic": "semantic-ui#~2.1.4",
+    "angular-resource": "~1.4.7"
+  }
+}
