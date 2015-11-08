@@ -4,9 +4,39 @@ var todo = angular.module('todo', ['ngResource']);
 
 todo.controller('ToDo', ['$scope', '$resource', function($scope, $resource) {
 	$scope.header = 'ToDo App';
-	$scope.selected = '0';
 
-	var List = $resource('/list/:listId');
+	var List = $resource('/lists/:listId', {listId: '@id'});
+	var Item = $resource('/lists/:listId/items/:itemId', {listId: '@list', itemId: '@id'});
 
 	$scope.lists = List.query();
+
+	$scope.$watch('listId', function(newListId) {
+		if (newListId) {
+			$scope.list = List.get({listId: newListId});
+			$scope.items = Item.query({listId: newListId});
+		} else {
+			$scope.items = [];
+		}
+	});
+
+	$scope.addList = function() {
+		var list = new List({name: 'List ' + $scope.lists.length, items: []});
+		list.$save(function() {
+			$scope.lists.push(list);
+			$scope.listId = list.id.toString();
+		});
+	}
+
+	$scope.addItem = function() {
+		var item = new Item({list: parseInt($scope.listId), name: 'Item ' + $scope.items.length});
+		item.$save();
+		$scope.items.push(item);
+	}
+
+	$scope.removeItem = function(item) {
+		var index = $scope.items.indexOf(item);
+		item.$delete(function() {
+			$scope.items.splice(index, 1);
+		});
+	}
 }]);
