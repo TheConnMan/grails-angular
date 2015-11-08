@@ -28,7 +28,7 @@ todo.controller('ToDo', ['$scope', '$resource', function($scope, $resource) {
 	}
 
 	$scope.addItem = function() {
-		var item = new Item({list: parseInt($scope.listId), name: 'Item ' + $scope.items.length});
+		var item = new Item({list: $scope.list, name: 'Item ' + $scope.items.length});
 		item.$save();
 		$scope.items.push(item);
 	}
