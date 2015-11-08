@@ -1,6 +1,11 @@
 package com.theconnman.angular.domains
 
-class ItemController {
+import grails.rest.RestfulController
 
-	static scaffold = Item
+class ItemController extends RestfulController {
+	static responseFormats = ['json', 'xml']
+
+	ItemController() {
+		super(List)
+	}
 }
