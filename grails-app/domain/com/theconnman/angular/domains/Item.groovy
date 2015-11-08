@@ -1,5 +1,8 @@
 package com.theconnman.angular.domains
 
+import grails.rest.*
+
+@Resource(uri='/items', formats=['json', 'xml'])
 class Item {
 
 	String name
