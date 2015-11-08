@@ -1,11 +1,14 @@
 'use strict';
 
-var todo = angular.module('todo', ['ngResource']);
+var todo = angular.module('todo', ['todo.modules.List']);
 
-todo.controller('ToDo', ['$scope', '$resource', function($scope, $resource) {
+todo.controller('ToDo', ['$scope', '$http', 'List', function($scope, $http, List) {
 	$scope.header = 'ToDo App';
+	$scope.selected = '0';
 
-	var List = $resource('/api/list/:listId');
-
-	$scope.lists = List.query();
+	$http.get('/test').success(function(data) {
+		$scope.lists = data.map(function(item) {
+			return new List(item);
+		});
+	});
 }]);
