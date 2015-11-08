@@ -6,7 +6,7 @@ todo.controller('ToDo', ['$scope', '$resource', function($scope, $resource) {
 	$scope.header = 'ToDo App';
 
 	var List = $resource('/lists/:listId', {listId: '@id'});
-	var Item = $resource('/lists/:listId/items/:itemId', {listId: '@list', itemId: '@id'});
+	var Item = $resource('/lists/:listId/items/:itemId', {listId: '@list.id', itemId: '@id'});
 
 	$scope.lists = List.query();
 
