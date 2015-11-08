@@ -4,8 +4,14 @@ var todo = angular.module('todo', ['ngResource']);
 
 todo.controller('ToDo', ['$scope', '$resource', function($scope, $resource) {
 	$scope.header = 'ToDo App';
+	$scope.editingList = false;
 
-	var List = $resource('/lists/:listId', {listId: '@id'});
+	var List = $resource('/lists/:listId', {listId: '@id'}, {
+		update: {
+			method: 'PUT',
+			params: {listId: '@id'}
+		}
+	});
 	var Item = $resource('/lists/:listId/items/:itemId', {listId: '@list.id', itemId: '@id'});
 
 	$scope.lists = List.query();
@@ -24,6 +30,12 @@ todo.controller('ToDo', ['$scope', '$resource', function($scope, $resource) {
 		list.$save(function() {
 			$scope.lists.push(list);
 			$scope.listId = list.id.toString();
+		});
+	}
+
+	$scope.saveListName = function() {
+		$scope.list.$update(function() {
+			$scope.editingList = false;
 		});
 	}
 
