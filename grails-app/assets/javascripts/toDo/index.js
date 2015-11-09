@@ -14,12 +14,13 @@ todo.controller('ToDo', ['$scope', '$resource', function($scope, $resource) {
 	});
 	var Item = $resource('/lists/:listId/items/:itemId', {listId: '@list.id', itemId: '@id'});
 
-	$scope.lists = List.query();
+	$scope.lists = List.query(function() {
+		$scope.list = $scope.lists[0];
+	});
 
-	$scope.$watch('listId', function(newListId) {
-		if (newListId) {
-			$scope.list = List.get({listId: newListId});
-			$scope.items = Item.query({listId: newListId});
+	$scope.$watch('list', function(newList) {
+		if (newList) {
+			$scope.items = Item.query({listId: newList.id});
 		} else {
 			$scope.items = [];
 		}
