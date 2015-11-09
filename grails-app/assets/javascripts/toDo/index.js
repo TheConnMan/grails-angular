@@ -34,7 +34,13 @@ todo.controller('ToDo', ['$scope', '$resource', function($scope, $resource) {
 		});
 	}
 
+	$scope.editListName = function() {
+		$scope.tempListName = $scope.list.name;
+		$scope.editingList = true;
+	}
+
 	$scope.saveListName = function() {
+		$scope.list.name = $scope.tempListName;
 		$scope.list.$update(function() {
 			$scope.editingList = false;
 		});
