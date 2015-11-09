@@ -44,6 +44,9 @@ todo.controller('ToDo', ['$scope', '$resource', function($scope, $resource) {
 	$scope.editListName = function() {
 		$scope.tempListName = $scope.list.name;
 		$scope.editingList = true;
+		setTimeout(function() {
+			$('#listInput').focus();
+		}, 0);
 	}
 
 	$scope.saveListName = function() {
@@ -72,6 +75,9 @@ todo.controller('ToDo', ['$scope', '$resource', function($scope, $resource) {
 	$scope.editItem = function(item) {
 		item.tempItemName = item.name;
 		item.editing = true;
+		setTimeout(function() {
+			$('#item-' + item.id + ' input').focus();
+		}, 0);
 	}
 
 	$scope.saveItemName = function(item) {

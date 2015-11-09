@@ -15,13 +15,13 @@
 				<h2>
 					<span ng-show="!editingList" ng-click="editListName()">{{list.name}}</span>
 					<span ng-show="editingList">
-						<input class="ui input" ng-model="tempListName" />
+						<input id="listInput" class="ui input" ng-model="tempListName" />
 						<i class="ui green check link icon" ng-click="saveListName()"></i>
 						<i class="ui red remove link icon" ng-click="editingList = false"></i>
 					</span>
 				</h2>
 				<div class="ui relaxed divided list">
-					<div class="item" ng-repeat="item in items">
+					<div id="item-{{ item.id }}" class="item" ng-repeat="item in items">
 						<span ng-show="!item.editing">
 							<span ng-click="editItem(item)">{{item.name}}</span>
 							<i class="ui circular icon link remove" ng-click="removeItem(item)"></i>
