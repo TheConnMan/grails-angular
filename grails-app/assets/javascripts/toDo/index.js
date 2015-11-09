@@ -53,9 +53,12 @@ todo.controller('ToDo', ['$scope', '$resource', function($scope, $resource) {
 	}
 
 	$scope.addItem = function() {
-		var item = new Item({list: $scope.list, name: 'Item ' + $scope.items.length});
-		item.$save();
-		$scope.items.push(item);
+		var item = new Item({list: $scope.list, name: 'New Item'});
+		item.$save(function() {
+			item.tempItemName = item.name;
+			item.editing = true;
+			$scope.items.push(item);
+		});
 	}
 
 	$scope.editItem = function(item) {
