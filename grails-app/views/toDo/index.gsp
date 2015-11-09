@@ -20,7 +20,16 @@
 					</span>
 				</h2>
 				<ul>
-					<li ng-repeat="item in items">{{item.name}}<i class="ui icon remove" ng-click="removeItem(item)"></i></li>
+					<li ng-repeat="item in items">
+						<span ng-show="!item.editing">
+							<span ng-click="editItem(item)">{{item.name}}</span><i class="ui icon link remove" ng-click="removeItem(item)"></i>
+						</span>
+						<span ng-show="item.editing">
+							<input class="ui input" ng-model="item.tempItemName" />
+							<i class="ui green check link icon" ng-click="saveItemName(item)"></i>
+							<i class="ui red remove link icon" ng-click="item.editing = false"></i>
+						</span>
+					</li>
 					<li><button class="ui button" ng-click="addItem()">Add Item</div>
 				</ul>
 			</div>

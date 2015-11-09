@@ -5,6 +5,7 @@ var todo = angular.module('todo', ['ngResource']);
 todo.controller('ToDo', ['$scope', '$resource', function($scope, $resource) {
 	$scope.header = 'ToDo App';
 	$scope.editingList = false;
+	$scope.editingItem = false;
 
 	var List = $resource('/lists/:listId', {listId: '@id'}, {
 		update: {
@@ -12,7 +13,12 @@ todo.controller('ToDo', ['$scope', '$resource', function($scope, $resource) {
 			params: {listId: '@id'}
 		}
 	});
-	var Item = $resource('/lists/:listId/items/:itemId', {listId: '@list.id', itemId: '@id'});
+	var Item = $resource('/lists/:listId/items/:itemId', {listId: '@list.id', itemId: '@id'}, {
+		update: {
+			method: 'PUT',
+			params: {listId: '@list.id', itemId: '@id'}
+		}
+	});
 
 	$scope.lists = List.query(function() {
 		$scope.list = $scope.lists[0];
@@ -50,6 +56,18 @@ todo.controller('ToDo', ['$scope', '$resource', function($scope, $resource) {
 		var item = new Item({list: $scope.list, name: 'Item ' + $scope.items.length});
 		item.$save();
 		$scope.items.push(item);
+	}
+
+	$scope.editItem = function(item) {
+		item.tempItemName = item.name;
+		item.editing = true;
+	}
+
+	$scope.saveItemName = function(item) {
+		item.name = item.tempItemName;
+		item.$update(function() {
+			item.editing = false;
+		});
 	}
 
 	$scope.removeItem = function(item) {
