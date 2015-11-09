@@ -36,7 +36,7 @@ todo.controller('ToDo', ['$scope', '$resource', function($scope, $resource) {
 		var list = new List({name: 'List ' + $scope.lists.length, items: []});
 		list.$save(function() {
 			$scope.lists.push(list);
-			$scope.listId = list.id.toString();
+			$scope.list = list;
 		});
 	}
 
