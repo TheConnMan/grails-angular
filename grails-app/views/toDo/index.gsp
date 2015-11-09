@@ -15,7 +15,7 @@
 				<h2>
 					<span ng-show="!editingList" ng-click="editListName()">{{list.name}}</span>
 					<span ng-show="editingList">
-						<input id="listInput" class="ui input" ng-model="tempListName" />
+						<input id="listInput" class="ui input" ng-model="tempListName" todo-enter="saveListName()" todo-esc="editingList = false" />
 						<i class="ui green check link icon" ng-click="saveListName()"></i>
 						<i class="ui red remove link icon" ng-click="editingList = false"></i>
 					</span>
@@ -27,7 +27,7 @@
 							<i class="ui circular icon link remove" ng-click="removeItem(item)"></i>
 						</span>
 						<span ng-show="item.editing">
-							<input class="ui input" ng-model="item.tempItemName" />
+							<input class="ui input" ng-model="item.tempItemName" todo-enter="saveItemName(item)" todo-esc="item.editing = false" />
 							<i class="ui green check link icon" ng-click="saveItemName(item)"></i>
 							<i class="ui red remove link icon" ng-click="item.editing = false"></i>
 						</span>

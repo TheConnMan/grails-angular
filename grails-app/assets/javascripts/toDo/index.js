@@ -93,4 +93,26 @@ todo.controller('ToDo', ['$scope', '$resource', function($scope, $resource) {
 			$scope.items.splice(index, 1);
 		});
 	}
-}]);
+}]).directive('todoEnter', function() {
+	return function($scope, $element, $attrs) {
+		$element.bind('keydown keypress', function(e) {
+			if (e.which === 13) {
+				$scope.$apply(function() {
+					$scope.$eval($attrs.todoEnter);
+				});
+				e.preventDefault();
+			}
+		});
+	}
+}).directive('todoEsc', function() {
+	return function($scope, $element, $attrs) {
+		$element.bind('keydown keypress', function(e) {
+			if (e.which === 27) {
+				$scope.$apply(function() {
+					$scope.$eval($attrs.todoEsc);
+				});
+				e.preventDefault();
+			}
+		});
+	}
+});
