@@ -52,6 +52,14 @@ todo.controller('ToDo', ['$scope', '$resource', function($scope, $resource) {
 		});
 	}
 
+	$scope.removeList = function() {
+		var index = $scope.lists.indexOf($scope.list);
+		$scope.list.$delete(function() {
+			$scope.lists.splice(index, 1);
+			$scope.list = $scope.lists[0];
+		});
+	}
+
 	$scope.addItem = function() {
 		var item = new Item({list: $scope.list, name: 'New Item'});
 		item.$save(function() {

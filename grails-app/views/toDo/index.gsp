@@ -10,6 +10,7 @@
 			<h1 class="ui header">{{header}}</h1>
 			<select class="ui dropdown" ng-options="l.name for l in lists" ng-model="list"></select>
 			<i class="ui big plus link icon" ng-click="addList()"></i>
+			<i class="ui big remove link icon" ng-click="removeList()"></i>
 			<div class="ui segment" ng-show="list">
 				<h2>
 					<span ng-show="!editingList" ng-click="editListName()">{{list.name}}</span>
